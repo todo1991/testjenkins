@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment{
-        DOCKER_IMAGE = "ddthuong/nginx"
+        DOCKER_IMAGE = "lambq1/nginx"
     }
     stages {
         stage("Build"){

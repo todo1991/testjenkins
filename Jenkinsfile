@@ -13,18 +13,18 @@ pipeline {
             }
             steps {
                 sh '''
-                    sudo docker build -t ${DOCKER_IMAGE}:${DOCKER_TAG} . 
-                    sudo docker tag ${DOCKER_IMAGE}:${DOCKER_TAG} ${DOCKER_IMAGE}:latest
-                    sudo docker image ls | grep ${DOCKER_IMAGE}'''
+                    docker build -t ${DOCKER_IMAGE}:${DOCKER_TAG} . 
+                    docker tag ${DOCKER_IMAGE}:${DOCKER_TAG} ${DOCKER_IMAGE}:latest
+                    docker image ls | grep ${DOCKER_IMAGE}'''
                 withCredentials([usernamePassword(credentialsId: 'docker-hub', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
-                    sh 'sudo echo $DOCKER_PASSWORD | docker login --username $DOCKER_USERNAME --password-stdin'
-                    sh "sudo docker push ${DOCKER_IMAGE}:${DOCKER_TAG}"
-                    sh "sudo docker push ${DOCKER_IMAGE}:latest"
+                    sh 'echo $DOCKER_PASSWORD | docker login --username $DOCKER_USERNAME --password-stdin'
+                    sh "docker push ${DOCKER_IMAGE}:${DOCKER_TAG}"
+                    sh "docker push ${DOCKER_IMAGE}:latest"
                 }
 
                 //clean to save disk
-                sh "sudo docker image rm ${DOCKER_IMAGE}:${DOCKER_TAG}"
-                sh "sudo docker image rm ${DOCKER_IMAGE}:latest"
+                sh "docker image rm ${DOCKER_IMAGE}:${DOCKER_TAG}"
+                sh "docker image rm ${DOCKER_IMAGE}:latest"
             }
         }
         stage("Deploy"){

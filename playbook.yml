@@ -3,6 +3,8 @@
   remote_user: root
   become: yes
   tasks:
+    - name: Update apt
+      shell: sudo apt update
     - name: Install Docker
       apt:
         name:

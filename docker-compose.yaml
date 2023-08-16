@@ -1,7 +1,7 @@
 version: "3.3"
 services:
   app:
-    image: buiquanglam/nginx:latest
+    image: todo1991/nginx:latest
     ports:
       - "80:80"
 
